@@ -119,12 +119,12 @@ ul {
       .overall li:before {
         top: -6px; } }
   /* line 151, /Users/wernah/sites/wernahdotcom/source/stylesheets/all.css.scss */
-  .overall li#ferocia:before {
-    background: #6c11a7; }
+  .overall li#alt:before {
+    background: #ff7a64; }
   /* line 151, /Users/wernah/sites/wernahdotcom/source/stylesheets/all.css.scss */
-  .overall li#ferocia a:hover {
-    color: #6c11a7;
-    border-color: rgba(108, 17, 167, 0.5); }
+  .overall li#alt a:hover {
+    color: #ff7a64;
+    border-color: rgba(255, 122, 100, 0.5); }
   /* line 152, /Users/wernah/sites/wernahdotcom/source/stylesheets/all.css.scss */
   .overall li#slothlete:before {
     background: #777; }
