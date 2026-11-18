@@ -4,7 +4,7 @@
 
 /* Trim text to cap height and baseline so margins are the visible gaps */
 @supports (text-box: trim-both cap alphabetic) {
-  h1, .intro, h3 {
+  h1, .intro {
     text-box: trim-both cap alphabetic; } }
 
 .container {
@@ -95,78 +95,10 @@ h1 {
   .intro a:hover {
     color: rgba(20, 20, 19, 0.6); }
 
-h3 {
-  margin: var(--space) 0 1em;
-  font-size: 15px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  opacity: .4; }
-
 ul {
-  margin: 0em;
+  margin: 0;
   list-style: none;
   padding: 0; }
-  ul.content h4 {
-    display: inline;
-    font-size: 9px;
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: .2em;
-    padding: .3em .4em;
-    border: 1px transparent solid;
-    border-radius: .3em;
-    line-height: 22px;
-    margin: 0;
-    position: relative;
-    top: -0.3em;
-    left: -0.9em;
-    background: rgba(0, 0, 0, 0.1); }
-    @media (min-width: 600px) {
-      ul.content h4 {
-        font-size: 11px; } }
-  ul.content li:before {
-    opacity: 0;
-    margin-right: 0; }
-
-.emoji {
-  font-size: 25em; }
-
-li {
-  font-size: 19px;
-  line-height: 1.7; }
-  @media (min-width: 600px) {
-    li {
-      font-size: 24px; } }
-  li:before {
-    content: " ";
-    display: inline-block;
-    width: 4px;
-    height: 4px;
-    border-radius: 100%;
-    background: #777;
-    margin-right: 7px;
-    position: relative;
-    top: -3px; }
-    li:before .content {
-      opacity: 0; }
-    @media (min-width: 600px) {
-      li:before {
-        top: -6px; } }
-
-.links {
-  margin-top: 40px;
-  margin-left: -6px; }
-  .links li {
-    display: inline-block;
-    padding: 0 6px; }
-    .links li:before {
-      display: none; }
-    .links li a {
-      font-size: 18px;
-      color: #141413; }
-      .links li a:hover {
-        color: rgba(20, 20, 19, 0.4); }
 
 @-webkit-keyframes container {
   from {
@@ -180,9 +112,9 @@ li {
    are exactly the row padding. Browsers without text-box get an approximation. */
 .timeline {
   --gap: 0.9em;
+  grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: max-content 1fr;
-  column-gap: 0.75em;
+  grid-template-columns: subgrid;
   font-size: clamp(22px, 3.9vw, 40px);
   /* section break: 1.5x the element gap */
   margin: calc(var(--space) * 1.5) 0 var(--space);
@@ -212,7 +144,7 @@ li {
   .timeline .company {
     font-weight: 500; }
   @media (max-width: 599px) {
-    .timeline {
+    .cv, .timeline, .more, .more .group {
       display: block; }
     .timeline li {
       display: block; }
@@ -221,3 +153,50 @@ li {
       font-size: 17px;
       line-height: 1.25;
       margin-bottom: 0.45em; } }
+
+/* Shared two-column grid: years / labels on the left, content on the right */
+.cv {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: clamp(16px, 2.9vw, 30px); }
+
+/* Secondary section: same grammar as the timeline (grey label, black content,
+   hairline rules), one step down in size and with no rule between items */
+.more {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  margin-bottom: var(--space);
+  font-size: clamp(18px, 2.4vw, 24px);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1.5; }
+  /* No rules here: hairlines belong to the timeline, so this section reads
+     as the quieter register. Groups are separated by space; the left-column
+     labels mark where each starts. */
+  .more .group {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: baseline; }
+    .more .group + .group {
+      margin-top: 32px; }
+  @supports (text-box: trim-both cap alphabetic) {
+    .more .group > * {
+      text-box: trim-both cap alphabetic; } }
+  .more .label, .more .note {
+    color: rgba(20, 20, 19, 0.4); }
+  .more a:link, .more a:visited {
+    border-bottom: none;
+    text-decoration: underline;
+    text-decoration-color: rgba(20, 20, 19, 0.25);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em; }
+  .more a:hover {
+    color: #141413;
+    text-decoration-color: #141413; }
+  @media (max-width: 599px) {
+    .more .label {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 0.6em; } }
