@@ -143,16 +143,28 @@ ul {
     white-space: nowrap; }
   .timeline .company {
     font-weight: 500; }
+    .timeline .company::before {
+      content: "· ";
+      font-weight: 400; }
   @media (max-width: 599px) {
-    .cv, .timeline, .more, .more .group {
-      display: block; }
-    .timeline li {
-      display: block; }
+    /* Mobile keeps the two columns: years left, title over company right.
+       Type scales so the longest title (Principal Product Designer, 10.1em)
+       plus years (5.66em x .77) and the column gap fit the content width
+       (viewport - 64px padding - 16px gap) down to a 280px-wide screen. */
+    .timeline {
+      font-size: clamp(13px, calc((100vw - 80px) / 14.6), 22px); }
     .timeline .years {
-      display: block;
-      font-size: 17px;
-      line-height: 1.25;
-      margin-bottom: 0.45em; } }
+      font-size: 0.77em; }
+    /* title and company each trimmed to cap/baseline, so the flex gap is the
+       exact baseline-to-cap distance */
+    .timeline .role {
+      display: flex;
+      flex-direction: column;
+      gap: 0.54em; }
+    .timeline .title, .timeline .company {
+      text-box: trim-both cap alphabetic; }
+    .timeline .company::before {
+      content: none; } }
 
 /* Shared two-column grid: years / labels on the left, content on the right */
 .cv {
@@ -195,7 +207,16 @@ ul {
   .more a:hover {
     color: #141413;
     text-decoration-color: #141413; }
+  .more .note::before {
+    content: "· "; }
   @media (max-width: 599px) {
+    /* grey detail drops to its own line; the dot only separates on one line */
+    .more .note {
+      display: block; }
+      .more .note::before {
+        content: none; }
+    .more li + li {
+      margin-top: 0.6em; }
     .more .label {
       display: block;
       font-size: 15px;
